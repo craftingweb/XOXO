@@ -1,4 +1,4 @@
-import GameBoard from "./components/GameBoard";
+import GameBoard from "./components/GameBoard.jsx";
 import Player from "./components/Player";
 
 function App() {

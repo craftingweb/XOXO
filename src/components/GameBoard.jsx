@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
@@ -5,19 +7,33 @@ const initialGameBoard = [
 ];
 
 export default function GameBoard() {
+  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+
+  function handleSelectSquare(indexRaw, indexCol) {
+    setGameBoard((prevGameBoard) => {
+      const updateBoard = [...prevGameBoard].map((innerArray) => [
+        ...innerArray,
+      ]);
+      updateBoard[indexRaw][indexCol] = "X";
+      return updateBoard;
+    });
+  }
+
   return (
     <ol id="game-board">
-      {initialGameBoard.map((raw, indexRaw) => {
+      {gameBoard.map((raw, indexRaw) => (
         <li key={indexRaw}>
           <ol>
-            {raw.map((playerSymbol, index) => {
-              <li key={index}>
-                <button>{playerSymbol}</button>
-              </li>;
-            })}
+            {raw.map((playerSymbol, indexCol) => (
+              <li key={indexCol}>
+                <button onClick={() => handleSelectSquare(indexRaw, indexCol)}>
+                  {playerSymbol}
+                </button>
+              </li>
+            ))}
           </ol>
-        </li>;
-      })}
+        </li>
+      ))}
     </ol>
   );
 }
